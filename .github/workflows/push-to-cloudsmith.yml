@@ -27,7 +27,7 @@ jobs:
       # Step 4: Push the Docker image to Cloudsmith
       - name: Push Docker image
         run: |
-          docker push docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/$IMAGE_TAG
+          docker push docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo-img:latest
           
       # Step 5: Azure login
       - name: Azure Login
