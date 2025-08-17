@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aks-demo
-        image: docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo:latest
+        image: docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo-img:latest
         ports:
         - containerPort: 80
         imagePullPolicy: Always
