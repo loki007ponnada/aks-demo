@@ -21,7 +21,7 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          IMAGE_TAG=my-image-name:${{ github.sha }}
+          IMAGE_TAG=aks-demo-img:$(date +%Y%m%d%H%M)
           docker build -t docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/$IMAGE_TAG .
 
       # Step 4: Push the Docker image to Cloudsmith
