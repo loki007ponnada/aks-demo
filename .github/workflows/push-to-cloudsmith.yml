@@ -45,4 +45,4 @@ jobs:
         run: |
               kubectl apply -f k8/deployment.yaml
               kubectl apply -f k8/service.yaml
-              kubectl apply -f k8/aks-demo-ingress.yaml
+             
