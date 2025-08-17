@@ -21,14 +21,13 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          IMAGE_TAG=aks-demo-img:$(date +%Y%m%d%H%M)
+          IMAGE_TAG=aks-demo-img:latest
           docker build -t docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/$IMAGE_TAG .
 
       # Step 4: Push the Docker image to Cloudsmith
       - name: Push Docker image
         run: |
-          IMAGE_TAG=aks-demo-img:$(date +%Y%m%d%H%M)
-          docker push docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/$IMAGE_TAG
+          docker push docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo-img:latest
           
       # Step 5: Azure login
       - name: Azure Login
@@ -44,5 +43,5 @@ jobs:
       # Step 7: Deploy to AKS
       - name: Deploy to AKS
         run: |
-              kubectl apply -f k8s/deployment.yaml
-              kubectl apply -f k8s/service.yaml
+              kubectl apply -f k8/deployment.yaml
+              kubectl apply -f k8/service.yaml
