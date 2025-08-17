@@ -29,3 +29,20 @@ jobs:
         run: |
           IMAGE_TAG=aks-demo-img:$(date +%Y%m%d%H%M)
           docker push docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/$IMAGE_TAG
+          
+      # Step 5: Azure login
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Step 6: Get AKS credentials
+      - name: Setup AKS
+        run: |
+              az aks get-credentials --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }}
+
+      # Step 7: Deploy to AKS
+      - name: Deploy to AKS
+        run: |
+              kubectl apply -f k8s/deployment.yaml
+              kubectl apply -f k8s/service.yaml
