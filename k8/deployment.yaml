@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: aks-demo
+  namespace: learn-namespace
 spec:
   replicas: 2
   selector:
@@ -13,10 +14,31 @@ spec:
         app: aks-demo
     spec:
       containers:
-      - name: aks-demo
-        image: docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo-img:latest
-        ports:
-        - containerPort: 80
-        imagePullPolicy: Always
+        - name: aks-demo
+          image: docker.cloudsmith.io/lp-pc00/learning-demo-cldsmith/aks-demo-img:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
       imagePullSecrets:
         - name: cloudsmith-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: learn-namespace 
+  name: aks-demo-service
+spec:
+  selector:
+    app: aks-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
